@@ -64,11 +64,11 @@
     // on nodejs platform export as module
     if(typeof module !== 'undefined')
     {
-        module.exports = namespace;
+        module.exports = new Ns();
     }
     else // on browser environment add to window
     {
-        window.namespace = namespace;
+        window.namespace = new Ns();
     }
 
 })();
