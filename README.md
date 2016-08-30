@@ -1,6 +1,8 @@
 #ns-js
 
-ns-js is a simple javascript namespacing library.
+[![Build Status](https://travis-ci.org/elderfo/ns-js.svg?branch=master)](https://travis-ci.org/elderfo/ns-js)
+
+ns.js is a super simple javascript namespacing library.
 
 ## Example:
 
