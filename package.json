@@ -4,7 +4,7 @@
   "description": "A namespacing module for javascript.",
   "main": "ns.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "test"
   },
   "author": "Chris Getsfred",
   "license": "MIT",

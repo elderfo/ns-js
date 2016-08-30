@@ -60,15 +60,13 @@
         return value != null;
     }
 
-
-    // on nodejs platform export as module
-    if(typeof module !== 'undefined')
-    {
-        module.exports = new Ns();
+    if(typeof window !== "undefined"){
+        window.Ns = Ns
+        window.ns = new Ns();
     }
-    else // on browser environment add to window
-    {
-        window.namespace = new Ns();
+
+    if(typeof module !== "undefined" && module.exports){
+        module.exports = new Ns();
     }
 
 })();
