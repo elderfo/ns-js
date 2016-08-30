@@ -4,7 +4,7 @@
   "description": "A namespacing module for javascript.",
   "main": "ns.js",
   "scripts": {
-    "test": "test"
+    "test": "mocha ./test"
   },
   "author": "Chris Getsfred",
   "license": "MIT",
