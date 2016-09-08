@@ -19,7 +19,9 @@ describe("Ns", function() {
         it("should return object same object on subsequent calls", function(){
             var namespace = "ns.tests.namespace.notempty.object";
             var expected = ns.namespace(namespace);
+
             expected.test = "test";
+
             expected.testFunc = function() {};
 
             var actual = ns.namespace(namespace);
@@ -37,6 +39,16 @@ describe("Ns", function() {
             assert.throws(function() {
                 ns.namespace("");
             }, invalidNamespaceException);
+        });
+
+        it("should be able to access using object notation", function() {
+            var expected = ns.namespace("test.namespace.object.notation");
+            expected.test = true;
+
+            var actual = ns.test.namespace.object.notation;
+
+            assert.deepEqual(actual, expected);
+
         });
     });
 
