@@ -6,20 +6,26 @@
      * Creates or returns the object for the specified namespace. If the namespace has not yet been created, it will
      * be created
      * @param namespace namespace to return
+     * @param obj (object) optional - the object to store in the namespace
      * @returns {object} the object stored in the namespace or a new empty object
      */
-    Ns.prototype.namespace = function(namespace) {
+    Ns.prototype.namespace = function(namespace, obj) {
 
         validateNamespace(namespace);
 
         var parts = namespace.split("."),
             object = this,
-            i,
-            len;
+            i;
 
-        for (i = 0, len = parts.length; i < len; i++) {
+        for (i = 0; i < parts.length; i++) {
             if (!object[parts[i]]) {
-                object[parts[i]] = {};
+                if ( i == (parts.length - 1) && obj) {
+                    object[parts[i]] = obj;
+                } else {
+                    object[parts[i]] = {};
+                }
+            } else if (i == (parts.length - 1) && obj) {
+                object[parts[i]] = obj;
             }
             object = object[parts[i]];
         }
