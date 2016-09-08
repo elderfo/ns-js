@@ -7,6 +7,8 @@ var assert = require("chai").assert;
 
 describe("Ns", function() {
 
+    var invalidNamespaceException = "A namespace is required";
+
     describe("namespace", function() {
         it("should return empty object when object is not initialized", function() {
             var obj = ns.namespace("ns.tests.namespace.empty.object");
@@ -22,7 +24,19 @@ describe("Ns", function() {
 
             var actual = ns.namespace(namespace);
 
-            assert.deepEqua;(actual, expected);
+            assert.deepEqual(actual, expected);
+        });
+
+        it("should throw exception when no namespace is specified", function() {
+            assert.throws(function() {
+                ns.namespace();
+            }, invalidNamespaceException);
+        });
+
+        it("should throw exception when an empty is specified", function() {
+            assert.throws(function() {
+                ns.namespace("");
+            }, invalidNamespaceException);
         });
     });
 
@@ -52,6 +66,18 @@ describe("Ns", function() {
             var actual = ns.require(namespace);
 
             assert.deepEqual(actual, expected);
+        });
+
+        it("should throw exception when no namespace is specified", function() {
+            assert.throws(function() {
+                ns.require();
+            }, invalidNamespaceException);
+        });
+
+        it("should throw exception when an empty is specified", function() {
+            assert.throws(function() {
+                ns.require("");
+            }, invalidNamespaceException);
         });
     });
 

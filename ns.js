@@ -9,6 +9,9 @@
      * @returns {object} the object stored in the namespace or a new empty object
      */
     Ns.prototype.namespace = function(namespace) {
+
+        validateNamespace(namespace);
+
         var parts = namespace.split("."),
             object = this,
             i,
@@ -31,6 +34,8 @@
      * @returns {object} namespace object if found.
      */
     Ns.prototype.require = function(namespace) {
+        validateNamespace(namespace);
+
         var actual = getNamespace(namespace, this);
 
         if (!isValidNamespaceObject(actual)) {
@@ -38,6 +43,12 @@
         }
 
         return actual;
+    }
+
+    function validateNamespace(namespace) {
+        if ( !namespace || namespace.length == 0) {
+            throw new Error("A namespace is required");
+        }
     }
 
     function getNamespace(namespace, ns) {
