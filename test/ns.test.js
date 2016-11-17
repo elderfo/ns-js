@@ -1,9 +1,5 @@
 "use strict"
-
-require("mocha");
-
 var ns = require("../ns");
-var assert = require("chai").assert;
 
 describe("Ns", function () {
 
@@ -12,8 +8,8 @@ describe("Ns", function () {
     describe("namespace", function () {
         it("should return empty object when object is not initialized", function () {
             var obj = ns.namespace("ns.tests.namespace.empty.object");
-            assert.isObject(obj);
-            assert.lengthOf(Object.keys(obj), 0);
+
+            expect(Object.keys(obj).length).toBe(0);
         });
 
         it("should return object same object on subsequent calls", function () {
@@ -27,19 +23,19 @@ describe("Ns", function () {
 
             var actual = ns.namespace(namespace);
 
-            assert.deepEqual(actual, expected);
+            expect(actual).toBe(expected);
         });
 
         it("should throw exception when no namespace is specified", function () {
-            assert.throws(function () {
+            expect(function () {
                 ns.namespace();
-            }, invalidNamespaceException);
+            }).toThrowError(invalidNamespaceException);
         });
 
         it("should throw exception when an empty is specified", function () {
-            assert.throws(function () {
+            expect(function () {
                 ns.namespace("");
-            }, invalidNamespaceException);
+            }).toThrowError(invalidNamespaceException);
         });
 
         it("should be able to access using object notation", function () {
@@ -48,7 +44,7 @@ describe("Ns", function () {
 
             var actual = ns.test.namespace.object.notation;
 
-            assert.deepEqual(actual, expected);
+            expect(actual).toBe(expected);
 
         });
 
@@ -60,7 +56,7 @@ describe("Ns", function () {
             ns.namespace(namespace, expected);
 
             var actual = ns.namespace(namespace);
-            assert.deepEqual(actual, expected);
+            expect(actual).toBe(expected);
         });
 
         it("should be able to overwrite an object when specified", function () {
@@ -76,12 +72,12 @@ describe("Ns", function () {
             ns.namespace(namespace, original);
 
             var actual = ns.namespace(namespace);
-            assert.deepEqual(actual, original);
+            expect(actual).toBe(original);
 
             ns.namespace(namespace, expected);
             actual = ns.namespace(namespace);
 
-            assert.deepEqual(actual, expected);
+            expect(actual).toBe(expected);
         });
 
         // This is questionable behavior, but
@@ -105,20 +101,20 @@ describe("Ns", function () {
             // place the parent
             ns.namespace(parentNamespace, parent);
             var actual = ns.namespace(parentNamespace);
-            assert.deepEqual(actual, parent);
+            expect(actual).toBe(parent);
 
             //
             ns.namespace(childNamespace, child);
             actual = ns.namespace(childNamespace);
-            assert.deepEqual(actual, child);
+            expect(actual).toBe(child);
 
             // override the parent
             actual = ns.namespace(parentNamespace, parentOverride);
-            assert.deepEqual(actual, parentOverride);
+            expect(actual).toBe(parentOverride);
 
             // Retrieve the child again
             actual = ns.namespace(childNamespace);
-            assert.deepEqual(actual, {});
+            expect(actual).toEqual({});
 
 
         });
@@ -129,9 +125,9 @@ describe("Ns", function () {
         it("should throw an exception when a required module does not exist", function () {
             var namespace = "ns.tests.namespace.require.whenModuleNotCreated.throws";
 
-            assert.throws(function () {
+            expect(function () {
                 ns.require(namespace);
-            });
+            }).toThrow();
         });
 
         it("should not throw an exception when required module exists", function () {
@@ -139,9 +135,8 @@ describe("Ns", function () {
 
             ns.namespace(namespace);
 
-            assert.doesNotThrow(function () {
-                ns.require(namespace);
-            });
+            // Note: no assertion here because an exception would fail the test
+            ns.require(namespace);
         });
 
         it("should return the created object", function () {
@@ -150,19 +145,19 @@ describe("Ns", function () {
 
             var actual = ns.require(namespace);
 
-            assert.deepEqual(actual, expected);
+            expect(actual).toBe(expected);
         });
 
         it("should throw exception when no namespace is specified", function () {
-            assert.throws(function () {
+            expect(function () {
                 ns.require();
-            }, invalidNamespaceException);
+            }).toThrowError(invalidNamespaceException);
         });
 
         it("should throw exception when an empty is specified", function () {
-            assert.throws(function () {
+            expect(function () {
                 ns.require("");
-            }, invalidNamespaceException);
+            }).toThrowError(invalidNamespaceException);
         });
     });
 
